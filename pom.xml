@@ -95,6 +95,20 @@
     		<version>1.0</version>
 		</dependency>
         
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+		</dependency>        
+    
+        <!-- amazon aws -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.9.11</version>
+		</dependency>
+        
 		<!-- spring framework -->
         <dependency>
             <groupId>org.springframework</groupId>
