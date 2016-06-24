@@ -6,6 +6,7 @@ import org.kohsuke.args4j.Option;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.company.component.EmailClient;
 import com.company.component.SnsClient;
 
 public class Main {
@@ -33,7 +34,12 @@ public class Main {
     public void run() {    	
     	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
     	
-    	SnsClient sns = context.getBean(SnsClient.class);
-    	sns.sendText("eclipse test");
+    	//SnsClient sns = context.getBean(SnsClient.class);
+    	//sns.sendText("eclipse test");
+    	
+    	EmailClient email = context.getBean(EmailClient.class);
+    	email.Read();
+    	
+    	
     }
 }
