@@ -11,11 +11,11 @@ import com.company.component.SnsClient;
 
 public class Main {
 
-    @Option(name = "-u", aliases = "--user", required = true, usage = "user name.")
-    private String user;
-
-    @Option(name = "-s", aliases = "--password", usage = "password.")
-    private String password;
+    @Option(name = "-t", aliases = "--text", usage = "text message.")
+    private String text;
+    
+    @Option(name="-r", aliases = "--read", usage="read emails.")
+    private boolean read;
 
     public static void main(String[] args) {
         final Main main = new Main();
@@ -34,12 +34,15 @@ public class Main {
     public void run() {    	
     	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
     	
-    	//SnsClient sns = context.getBean(SnsClient.class);
-    	//sns.sendText("eclipse test");
+    	if (text != null) {
+    		SnsClient sns = context.getBean(SnsClient.class);
+    		sns.sendText(text);
+    	}
     	
-    	EmailClient email = context.getBean(EmailClient.class);
-    	email.Read();
-    	
+    	if (read) {
+    		EmailClient email = context.getBean(EmailClient.class);
+    		email.Read();
+    	}
     	
     }
 }
