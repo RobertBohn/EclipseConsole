@@ -42,7 +42,6 @@ public class Main {
     	if (read) {
     		EmailClient email = context.getBean(EmailClient.class);
     		email.Read();
-    	}
-    	
+    	}    	
     }
 }

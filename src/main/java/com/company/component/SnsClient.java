@@ -33,9 +33,11 @@ public class SnsClient {
     @PostConstruct
     private void initialize() {
         topic = properties.getProperty("sns.topic");
+		logger.info("sns topic: " + topic);
     }
     
     public void sendText(String message) {
         sns.publish(new PublishRequest(topic, message));
+		logger.info("sns sent: " + message);
     }
 }
