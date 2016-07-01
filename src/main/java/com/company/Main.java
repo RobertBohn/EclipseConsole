@@ -22,13 +22,12 @@ public class Main {
         final CmdLineParser cmdParser = new CmdLineParser(main);
 
         try {
-            cmdParser.parseArgument(args);     
+            cmdParser.parseArgument(args);  
+            main.run();
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
             cmdParser.printUsage(System.err);
-            System.exit(1);
         }
-        main.run();
     }
 
     public void run() {    	

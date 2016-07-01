@@ -73,7 +73,7 @@
 	</build>
 
 	<reporting>
-		<!-- mvn cobertura:cobertura  open target/site/cobertura/index.html -->
+		<!-- mvn cobertura:cobertura open target/site/cobertura/index.html -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -92,6 +92,15 @@
 						<format>html</format>
 						<format>xml</format>
 					</formats>
+				</configuration>
+			</plugin>
+
+			<!-- mvn javadoc:javadoc open target/site/apidocs/index.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
 				</configuration>
 			</plugin>
 		</plugins>

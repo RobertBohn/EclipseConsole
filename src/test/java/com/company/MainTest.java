@@ -1,9 +1,4 @@
-package com.company;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.company.component.SnsClient;
+			package com.company;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -18,17 +13,28 @@ public class MainTest extends TestCase {
     public static Test suite() {
         return new TestSuite(MainTest.class);
     }
-
-    public void testString() {
-    	
-       	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        
+    
+    public void testCmdLine() {      
        	try {
-       		SnsClient sns = context.getBean(SnsClient.class);
-    		sns.sendText("Testing.");
+        	Main.main(new String[] {"-r", "-t", "Cmd Test"});
        	} catch(Exception e) {
-            fail("sns send failed: " + e.getMessage());
+            fail("cmd line call failed: " + e.getMessage());
         }
-    }
-	
+    }	
+    
+    public void testNoCmdLine() {      
+       	try {
+        	Main.main(new String[] {});
+       	} catch(Exception e) {
+            fail("no cmd line call failed: " + e.getMessage());
+        }
+    }	
+    
+    public void testBadCmdLine() {      
+       	try {
+        	Main.main(new String[] {"-x"});
+       	} catch(Exception e) {
+            fail("bad cmd line call failed: " + e.getMessage());
+        }
+    }    
 }
