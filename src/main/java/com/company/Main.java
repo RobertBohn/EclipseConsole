@@ -8,6 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.company.component.EmailClient;
 import com.company.component.SnsClient;
+import com.company.component.SqsClient;
 
 /**
  * Main is the EclipseExample command line tool.
@@ -21,6 +22,9 @@ public class Main {
 
 	@Option(name = "-r", aliases = "--read", usage = "read emails.")
 	private boolean read;
+
+	@Option(name = "-q", aliases = "--queue", usage = "read sqs queues.")
+	private boolean queue;
 
 	/**
 	 * Parse command line parameters and send sns messages and/or list emails.
@@ -55,6 +59,11 @@ public class Main {
 		if (read) {
 			EmailClient email = context.getBean(EmailClient.class);
 			email.Read();
+		}
+		
+		if (queue) {
+			SqsClient sqs = context.getBean(SqsClient.class);
+			sqs.listQueues();
 		}
 	}
 }
