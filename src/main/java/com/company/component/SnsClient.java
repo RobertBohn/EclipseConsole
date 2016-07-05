@@ -36,8 +36,8 @@ public class SnsClient {
 		logger.info("sns topic: " + topic);
     }
     
-    public void sendText(String message) {
-        sns.publish(new PublishRequest(topic, message));
-		logger.info("sns sent: " + message);
+    public void sendText(String message) {    
+        sns.publish(new PublishRequest(topic, message));	        
+        logger.info("sns sent: " + message);
     }
 }

@@ -13,7 +13,7 @@ public class MainTest extends TestCase {
     public static Test suite() {
         return new TestSuite(MainTest.class);
     }
-    
+
     public void testSqs() {
        	try {
         	Main.main(new String[] {"-q"});
@@ -21,8 +21,8 @@ public class MainTest extends TestCase {
             fail("sqs call failed: " + e.getMessage());
         }   	
     }
-    
-    
+      
+  
     /*
     public void testCmdLine() {      
        	try {
