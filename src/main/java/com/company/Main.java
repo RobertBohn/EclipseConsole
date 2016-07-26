@@ -1,12 +1,10 @@
 package com.company;
 
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.company.component.EmailClient;
+import com.company.component.Parameters;
 import com.company.component.SnsClient;
 import com.company.component.SqsClient;
 
@@ -17,53 +15,36 @@ import com.company.component.SqsClient;
  */
 public class Main {
 
-	@Option(name = "-t", aliases = "--text", usage = "sns text message.")
-	private String text;
-
-	@Option(name = "-r", aliases = "--read", usage = "read emails.")
-	private boolean read;
-
-	@Option(name = "-q", aliases = "--queue", usage = "read sqs queues.")
-	private boolean queue;
-
 	/**
 	 * Parse command line parameters and send sns messages and/or list emails.
 	 * 
 	 * @param args     Command line arguments.
 	 */
 	public static void main(String[] args) {
-		final Main main = new Main();
-		final CmdLineParser cmdParser = new CmdLineParser(main);
-
-		try {
-			cmdParser.parseArgument(args);
-			main.run();
-		} catch (CmdLineException e) {
-			System.err.println(e.getMessage());
-			cmdParser.printUsage(System.err);
-		}
+		new Main().run(args);
 	}
 
 	/**
 	 * Initialize Spring application context, make requested calls.
 	 */
-	public void run() {
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"applicationContext.xml");
+	public void run(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-		if (text != null) {
-			SnsClient sns = context.getBean(SnsClient.class);
-			sns.sendText(text);
-		}
-
-		if (read) {
-			EmailClient email = context.getBean(EmailClient.class);
-			email.Read();
+		Parameters parameters = context.getBean(Parameters.class);
+		if (!parameters.parseArgument(args)) {
+			return;
 		}
 		
-		if (queue) {
-			SqsClient sqs = context.getBean(SqsClient.class);
-			sqs.listQueues();
+		if (parameters.getText() != null) {
+			((SnsClient)context.getBean(SnsClient.class)).sendText();
+		}
+
+		if (parameters.isRead()) {
+			((EmailClient)context.getBean(EmailClient.class)).Read();
+		}
+		
+		if (parameters.isQueue()) {
+			((SqsClient)context.getBean(SqsClient.class)).listQueues();
 		}
 	}
 }

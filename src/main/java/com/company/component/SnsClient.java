@@ -3,8 +3,11 @@ package com.company.component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
+
 import javax.annotation.PostConstruct;
+
 import java.util.Properties;
+
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -16,6 +19,9 @@ public class SnsClient {
 
     @Autowired
     private Properties properties;
+    
+    @Autowired
+    Parameters parameters;
     
     private static Logger logger = Logger.getLogger(SnsClient.class);
     private AmazonSNSClient sns;
@@ -34,6 +40,10 @@ public class SnsClient {
     private void initialize() {
         topic = properties.getProperty("sns.topic");
 		logger.info("sns topic: " + topic);
+    }
+    
+    public void sendText() {
+    	sendText(parameters.getText());
     }
     
     public void sendText(String message) {    
