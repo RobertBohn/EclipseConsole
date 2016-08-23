@@ -14,38 +14,11 @@ public class MainTest extends TestCase {
         return new TestSuite(MainTest.class);
     }
 
-    public void testSqs() {
-       	try {
-        	Main.main(new String[] {"-q"});
-       	} catch(Exception e) {
-            fail("sqs call failed: " + e.getMessage());
-        }   	
-    }
-      
-  
-    /*
     public void testCmdLine() {      
        	try {
-        	Main.main(new String[] {"-r", "-t", "Cmd Test"});
+        	Main.main(new String[] {"-t"});
        	} catch(Exception e) {
-            fail("cmd line call failed: " + e.getMessage());
+            fail("text read: " + e.getMessage());
         }
-    }	
-    
-    public void testNoCmdLine() {      
-       	try {
-        	Main.main(new String[] {});
-       	} catch(Exception e) {
-            fail("no cmd line call failed: " + e.getMessage());
-        }
-    }	
-    
-    public void testBadCmdLine() {      
-       	try {
-        	Main.main(new String[] {"-x"});
-       	} catch(Exception e) {
-            fail("bad cmd line call failed: " + e.getMessage());
-        }
-    }
-    */
+    }    
 }

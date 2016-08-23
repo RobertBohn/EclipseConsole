@@ -7,6 +7,7 @@ import com.company.component.EmailClient;
 import com.company.component.Parameters;
 import com.company.component.SnsClient;
 import com.company.component.SqsClient;
+import com.company.component.StringEventListener;
 
 /**
  * Main is the EclipseExample command line tool.
@@ -28,6 +29,8 @@ public class Main {
 	 * Initialize Spring application context, make requested calls.
 	 */
 	public void run(String[] args) {
+		
+		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		Parameters parameters = context.getBean(Parameters.class);
@@ -46,5 +49,9 @@ public class Main {
 		if (parameters.isQueue()) {
 			((SqsClient)context.getBean(SqsClient.class)).listQueues();
 		}
+		
+		((StringEventListener)context.getBean(StringEventListener.class)).fire("event fired!");
+		
+		
 	}
 }
